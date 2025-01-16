@@ -1,29 +1,33 @@
 require 'mongo'
 require 'time'
+require 'pry'
 
-# Establish MongoDB connection
-client = Mongo::Client.new(['127.0.0.1:27017'], database: 'your_database_name')
+class TimeSeries
+  def initialize(client)
+    @collection = client[:itunes_sales_report_estimates]
+  end
 
-# Define the collection
-collection = client[:itunes_app_sales_report_estimates]
+  # Function to get time series data
+  def get_time_series(app_id, start_date, end_date)
+    result = @collection.find(
+      {
+        aid: app_id,
+        d: { '$gte' => start_date, '$lte' => end_date }
+      }
+    ).map{|doc| doc['ir']}
 
-# Function to get time series data
-def get_time_series(app_id, start_date, end_date)
-  # Query the MongoDB collection
-  result = collection.find(
-    {
-      app_id: app_id,
-      date: { '$gte' => start_date.to_i, '$lte' => end_date.to_i }
-    },
-    projection: { _id: 0, date: 1 }
-  ).sort(date: 1).map { |doc| doc['date'] }
+    result
+  end
 
-  result
 end
 
-# Example usage
-start_date = Time.parse('2017-01-01')
-end_date = Time.parse('2017-01-03')
+# Establish MongoDB connection
+client = Mongo::Client.new(['127.0.0.1:27017'], database: 'app_seo_development')
+
+ts = TimeSeries.new(client)
+
+start_date = Time.parse('2017-01-01 00:00:00 UTC')
+end_date = Time.parse('2017-01-03 00:00:00 UTC')
 app_id = 7118
 
-puts get_time_series(app_id, start_date, end_date)
+puts ts.get_time_series(app_id, start_date, end_date)
