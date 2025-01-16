@@ -1,4 +1,5 @@
 require 'mongo'
+require 'dotenv/load'
 require 'time'
 require 'pry'
 
@@ -22,7 +23,7 @@ class TimeSeries
 end
 
 # Establish MongoDB connection
-client = Mongo::Client.new(['127.0.0.1:27017'], database: 'app_seo_development')
+client = Mongo::Client.new([ENV['MONGO_CLIENT_ADDRESS']], database: ENV['MONGO_DB_NAME'])
 
 ts = TimeSeries.new(client)
 
