@@ -1,4 +1,5 @@
 # Sensor Tower
+![Version](https://img.shields.io/badge/ruby-3.3.0-red)
 
 ## Getting Started
 
@@ -6,11 +7,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Run the application
 
-Steps to run the project.
-
 Pull the application code from the github repo:
 ```sh
-git clone git@github.com
+git clone git@github.com:Vitalijus/sensor-tower-1.git
 ```
 
 Install dependencies:
