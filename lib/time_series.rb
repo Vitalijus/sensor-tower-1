@@ -9,12 +9,20 @@ class TimeSeries
 
   # Function to get time series data
   def get_time_series(app_id, start_date, end_date)
+
+    # Start benchmarking
+    start_time = Time.now
+
     result = @collection.find(
       {
         aid: app_id,
         d: { '$gte' => start_date, '$lte' => end_date }
       }
     ).map{|doc| doc['ir']}
+
+    # End benchmarking
+    end_time = Time.now
+    puts "Query executed in #{(end_time - start_time).round(3)} seconds."
 
     result
   end

@@ -30,6 +30,7 @@ ruby lib/time_series.rb
 
 In the command line you should see similar result:
 ```sh
+Query executed in 0.003 seconds.
 20170101
 20170102
 20170103
