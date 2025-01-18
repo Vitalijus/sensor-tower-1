@@ -1,7 +1,6 @@
 require 'mongo'
 require 'dotenv/load'
 require 'time'
-require 'pry'
 
 class TimeSeries
   def initialize(client)
@@ -19,7 +18,6 @@ class TimeSeries
 
     result
   end
-
 end
 
 # Establish MongoDB connection
